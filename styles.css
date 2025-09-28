@@ -1,0 +1,150 @@
+/* styles.css - extracted from index.html */
+/* Content-first, minimalist layout inspired by sevish.com */
+:root{
+  /* Primary background: set to the image you specified */
+  --bg-image-primary: url('images/i,gg.png');
+  /* Fallback background (original) */
+  --bg-image-fallback: url('images/fond.png');
+  /* extra layers (pick images from images/ folder) */
+  --bg-image-3: url('images/mandelbulb_power_9.png');
+  --bg-image-4: url('images/icosahedron.png');
+  --bg-image-5: url('images/mandelbulb_power_90.png');
+  --bg-image-6: url('images/mandelbox_scale_2.jpg');
+  --bg-image-7: url('images/menger_sponge.jpg');
+  --bg-image-8: url('images/menger_sponge.png');
+  --bg-image-9: url('images/menger_spongekhhkh.png');
+  --bg-image-10: url('images/no.png');
+  --accent: #ff5500;
+  --muted: #bfc2c6;
+  /* control parallax intensity multipliers */
+  --parallax-mouse-mult: 0.5; /* reduce mouse movement */
+  --parallax-scroll-mult: 1.44; /* increased by 20% */
+  --bg-layers-count: 8;
+  /* target height for background images: shorter (360px) */
+  --bg-target-height: 360px;
+}
+
+html,body{height:100%;}
+:root{
+  /* dynamic background positions controlled by script.js (percent values) */
+  --bg-pos-top-x: 50%;
+  --bg-pos-top-y: 0%;
+  --bg-pos-bottom-x: 50%;
+  --bg-pos-bottom-y: 100%;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color:#eaeaea;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-bottom:4rem;
+  position:relative; /* keep pseudo-elements positioned relative to viewport */
+  min-height: calc(var(--bg-layers-count) * 100vh); /* allow scrolling to reveal stacked background layers */
+  /* fill side gaps with a dark color so contained images don't leave white space */
+  background-color: #0b0b0b;
+}
+
+/* Top and bottom background layers as pseudo-elements so we can use background-size:cover */
+/* disable top/bottom pseudo backgrounds — we use the .bg-layer elements exclusively
+   to avoid duplicate/ghost images when scrolling */
+body::before, body::after { display:none }
+
+/* Ensure layers sit above body pseudo-elements but behind content */
+.bg-layer{
+  position:fixed; top:0; left:0; width:100%; height:100vh; pointer-events:none; z-index:-1; /* full-bleed fixed layers */
+  background-repeat:no-repeat;
+  /* fixed background height (shorter) — preserve aspect ratio, center image vertically */
+  background-size: auto var(--bg-target-height);
+  background-position: center center;
+  opacity:0; transition:opacity 220ms linear; will-change:opacity,background-position;
+}
+
+/* active layer visible */
+.bg-layer.active{opacity:1}
+
+/* Keep site content above backgrounds */
+.site-wrap{position:relative; z-index:2}
+
+/* Ensure background-position variables exist for each layer */
+:root{
+  --bg-layer-3-pos: 50% 30%;
+  --bg-layer-4-pos: 50% 40%;
+  --bg-layer-5-pos: 50% 45%;
+  --bg-layer-6-pos: 50% 50%;
+  --bg-layer-7-pos: 50% 55%;
+  --bg-layer-8-pos: 50% 60%;
+  --bg-layer-9-pos: 50% 65%;
+  --bg-layer-10-pos: 50% 70%;
+}
+
+.bg-layer.layer-3{background-position:var(--bg-layer-3-pos)}
+.bg-layer.layer-4{background-position:var(--bg-layer-4-pos)}
+.bg-layer.layer-5{background-position:var(--bg-layer-5-pos)}
+.bg-layer.layer-6{background-position:var(--bg-layer-6-pos)}
+.bg-layer.layer-7{background-position:var(--bg-layer-7-pos)}
+.bg-layer.layer-8{background-position:var(--bg-layer-8-pos)}
+.bg-layer.layer-9{background-position:var(--bg-layer-9-pos)}
+.bg-layer.layer-10{background-position:var(--bg-layer-10-pos)}
+
+/* tuned opacities for final polish: use .active to reveal a layer */
+/* per-layer opacity overrides removed so .active controls visibility */
+
+/* read JS-controlled positions */
+.bg-layer.layer-3{background-position:var(--bg-layer-3-pos, 50% 30%)}
+.bg-layer.layer-4{background-position:var(--bg-layer-4-pos, 50% 40%)}
+.bg-layer.layer-5{background-position:var(--bg-layer-5-pos, 50% 45%)}
+
+/* seam between top and bottom backgrounds */
+.bg-seam{position:fixed;left:0;right:0;top:50vh;height:18vh;pointer-events:none;z-index:1;background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 50%, rgba(0,0,0,0) 100%);mix-blend-mode:normal;}
+
+/* translucent container for content to sit on */
+.site-wrap{
+  max-width:760px; margin:2.5rem auto; background:rgba(2,2,2,0.65); border-radius:6px; padding:2rem; box-shadow:0 12px 40px rgba(0,0,0,0.6);
+  position:relative; z-index:2; /* keep content above background pseudo-elements */
+}
+
+header{margin-bottom:1.2rem}
+header h1{margin:0 0 .25rem 0; font-size:clamp(1.6rem,4vw,2.4rem); letter-spacing:-0.02em; color:#fff}
+header p{margin:0; color:var(--muted); font-size:.95rem}
+
+/* track list stacked vertically, full-width players */
+.music{display:flex;flex-direction:column;gap:1.1rem;margin-top:1.4rem}
+.track{background:rgba(10,10,10,0.5); padding:.9rem; border-radius:6px; display:flex; flex-direction:column; gap:.6rem}
+.track .meta{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.artist{color:var(--muted);font-size:.95rem}
+.title{font-weight:700;color:#fff}
+.links{font-size:.9rem;color:var(--muted)}
+.links a{color:var(--accent);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.player iframe{width:100%;height:160px;border-radius:6px;border:0}
+footer{margin-top:1.6rem;color:#9f9f9f;font-size:.85rem;text-align:center}
+
+/* Sevish-style simple list */
+.sevish-track{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.sevish-track h2{margin:.1rem 0 .2rem 0;font-size:1.15rem;font-weight:600;color:#fff}
+.sevish-track .year{color:var(--muted);font-weight:400;font-size:.9rem;margin-left:.4rem}
+.sevish-track .link-line{font-size:.9rem;color:var(--muted);margin-bottom:.4rem}
+.sevish-track .link-line a{color:var(--accent);text-decoration:none}
+.sevish-track .description{margin:0 0 .6rem 0;color:var(--muted)}
+.player.small iframe{height:120px}
+
+@media (min-width:900px){.player iframe{height:200px}}
+@media (max-width:520px){
+  .site-wrap{margin:1rem;padding:1rem}
+  .player iframe{height:140px}
+  /* On small screens use only the fallback image for readability */
+  body::before, body::after{display:none}
+  body{background-image: var(--bg-image-fallback), linear-gradient(180deg,#0e0e10 0%, #0b0b0b 100%)}
+}
+
+/* assign images to layers */
+.bg-layer.layer-3{background-image:var(--bg-image-3)}
+.bg-layer.layer-4{background-image:var(--bg-image-4)}
+.bg-layer.layer-5{background-image:var(--bg-image-5)}
+.bg-layer.layer-6{background-image:var(--bg-image-6)}
+.bg-layer.layer-7{background-image:var(--bg-image-7)}
+.bg-layer.layer-8{background-image:var(--bg-image-8)}
+.bg-layer.layer-9{background-image:var(--bg-image-9)}
+.bg-layer.layer-10{background-image:var(--bg-image-10)}
