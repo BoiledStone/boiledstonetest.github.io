@@ -15,7 +15,6 @@
       font-family: Arial, sans-serif;
       color: #eee;
       background-color: #000;
-      overflow-x: hidden;
     }
 
     header {
@@ -38,26 +37,13 @@
       font-size: 1.1rem;
     }
 
-    .parallax-container {
-      height: 70vh;
-      min-height: 500px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .parallax-bg {
-      position: absolute;
-      top: -20%;
-      left: 0;
-      width: 100%;
-      height: 140%;
-      background-size: cover;
+    .parallax-section {
+      height: 600px;
+      background-attachment: fixed;
       background-position: center;
       background-repeat: no-repeat;
-      will-change: transform;
+      background-size: cover;
+      position: relative;
     }
 
     .parallax-overlay {
@@ -66,14 +52,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
-      z-index: 2;
+      background: rgba(0,0,0,0.4);
     }
 
     .content-section {
-      position: relative;
-      z-index: 10;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.95));
+      background: rgba(0,0,0,0.9);
       padding: 60px 20px;
     }
 
@@ -92,7 +75,6 @@
       border-radius: 12px;
       gap: 15px;
       align-items: flex-start;
-      backdrop-filter: blur(10px);
     }
 
     .track-player {
@@ -141,15 +123,12 @@
       font-size: 0.9rem;
       background-color: #222;
       text-align: center;
-      position: relative;
-      z-index: 10;
-      margin: 0;
     }
 
     @media screen and (max-width: 900px) {
-      .parallax-container {
-        height: 50vh;
-        min-height: 300px;
+      .parallax-section {
+        height: 400px;
+        background-attachment: scroll;
       }
       .track-container {
         flex-direction: column;
@@ -174,8 +153,7 @@
   </header>
 
   <!-- Parallax 1 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/mandelbulb_power_9.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/mandelbulb_power_9.png');">
     <div class="parallax-overlay"></div>
   </div>
 
@@ -200,8 +178,7 @@
   </div>
 
   <!-- Parallax 2 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/icosahedron.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/icosahedron.png');">
     <div class="parallax-overlay"></div>
   </div>
 
@@ -226,8 +203,7 @@
   </div>
 
   <!-- Parallax 3 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/i,gg.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/i,gg.png');">
     <div class="parallax-overlay"></div>
   </div>
 
@@ -252,82 +228,33 @@
   </div>
 
   <!-- Parallax 4 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/mandelbulb_power_90.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/mandelbulb_power_90.png');">
     <div class="parallax-overlay"></div>
   </div>
 
   <!-- Parallax 5 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/no.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/no.png');">
     <div class="parallax-overlay"></div>
   </div>
 
   <!-- Parallax 6 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/menger%20sponge.jpg');"></div>
+  <div class="parallax-section" style="background-image: url('images/menger%20sponge.jpg');">
     <div class="parallax-overlay"></div>
   </div>
 
   <!-- Parallax 7 -->
-  <div class="parallax-container">
-    <div class="parallax-bg" style="background-image: url('images/menger%20sponge.png');"></div>
+  <div class="parallax-section" style="background-image: url('images/menger%20sponge.png');">
+    <div class="parallax-overlay"></div>
+  </div>
+
+  <!-- Parallax 8 -->
+  <div class="parallax-section" style="background-image: url('images/menger%20spongekhhkh.png');">
     <div class="parallax-overlay"></div>
   </div>
 
   <footer>
     © 2025 BoiledStone — Tous droits réservés | All rights reserved
   </footer>
-
-  <script>
-    let ticking = false;
-    let lastScroll = 0;
-
-    function updateParallax() {
-      const scrollTop = window.pageYOffset;
-      const windowHeight = window.innerHeight;
-      
-      document.querySelectorAll('.parallax-bg').forEach(bg => {
-        const container = bg.parentElement;
-        const rect = container.getBoundingClientRect();
-        
-        // Only update if container is in viewport or near it
-        if (rect.bottom > -200 && rect.top < windowHeight + 200) {
-          const containerTop = container.offsetTop;
-          const containerHeight = container.offsetHeight;
-          
-          // Calculate parallax offset
-          const offset = (scrollTop - containerTop + windowHeight / 2) * 0.3;
-          
-          bg.style.transform = `translate3d(0, ${offset}px, 0)`;
-        }
-      });
-      
-      lastScroll = scrollTop;
-      ticking = false;
-    }
-
-    function requestTick() {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }
-
-    // Throttled scroll event
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      requestTick();
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        updateParallax();
-      }, 100);
-    }, { passive: true });
-
-    // Initial call and resize handler
-    window.addEventListener('load', updateParallax);
-    window.addEventListener('resize', updateParallax);
-  </script>
 
 </body>
 </html>
