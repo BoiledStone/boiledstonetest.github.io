@@ -16,7 +16,7 @@
     header {
       padding: 2rem;
       text-align: center;
-      background-color: #111; /* DARKER header */
+      background-color: #111;
     }
 
     header h1 {
@@ -31,13 +31,32 @@
       font-size: 1.1rem;
     }
 
-    /* Parallax sections */
-    .parallax {
+    .parallax-section {
+      position: relative;
       height: 500px;
-      background-attachment: fixed;
+      overflow: hidden;
+      margin: 40px 0;
+    }
+
+    .parallax-image {
+      position: absolute;
+      top: -50%;
+      left: 0;
+      width: 100%;
+      height: 200%;
+      background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: cover;
+    }
+
+    .parallax-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 1;
     }
 
     .music {
@@ -120,6 +139,9 @@
       .track-info .description {
         min-height: 150px;
       }
+      .parallax-section {
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -130,10 +152,12 @@
     <p>Music 🎶</p>
   </header>
 
-  <!-- First Parallax Image -->
-  <section class="parallax" style="background-image: url('images/mandelbox scale 2.jpg');"></section>
+  <!-- First Parallax Section -->
+  <div class="parallax-section" id="parallax1">
+    <div class="parallax-image" style="background-image: url('images/mandelbulb_power_9.png');"></div>
+    <div class="parallax-overlay"></div>
+  </div>
 
-  <!-- Music Section -->
   <section class="music">
     <!-- Première chanson -->
     <div class="track-container">
@@ -184,12 +208,40 @@
     </div>
   </section>
 
-  <!-- Second Parallax Image -->
-  <section class="parallax" style="background-image: url('images/mandelbulb_power_9.png');"></section>
+  <!-- Second Parallax Section -->
+  <div class="parallax-section" id="parallax2">
+    <div class="parallax-image" style="background-image: url('images/icosahedron.png');"></div>
+    <div class="parallax-overlay"></div>
+  </div>
 
   <footer>
     © 2025 BoiledStone — Tous droits réservés | All rights reserved
   </footer>
+
+  <script>
+    function parallaxScroll() {
+      const sections = document.querySelectorAll('.parallax-section');
+      
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const scrolled = window.pageYOffset;
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate if section is in viewport
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const image = section.querySelector('.parallax-image');
+          const parallaxSpeed = 0.5;
+          const yPos = -(scrolled - sectionTop) * parallaxSpeed;
+          image.style.transform = `translateY(${yPos}px)`;
+        }
+      });
+    }
+
+    window.addEventListener('scroll', parallaxScroll);
+    window.addEventListener('load', parallaxScroll);
+  </script>
 
 </body>
 </html>
