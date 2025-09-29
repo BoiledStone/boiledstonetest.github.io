@@ -27,11 +27,11 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .parallax-section {
   height: 600px;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  transform: translateZ(0);
+  will-change: background-position;
 }
 
 .content-section {
@@ -57,10 +57,11 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 }
 
 .track-player {
-  flex: 0 0 400px;
+  flex: 0 0 350px;  /* slightly thinner */
   height: 200px;
   border-radius: 10px;
   overflow: hidden;
+  background: transparent;
 }
 
 .track-player iframe {
@@ -188,24 +189,41 @@ footer {
   © 2025 BoiledStone — Tous droits réservés | All rights reserved
 </footer>
 
-<!-- Mobile-friendly JS parallax -->
+<!-- Smooth Mobile-friendly Parallax -->
 <script>
 const parallaxSections = document.querySelectorAll('.parallax-section');
-window.addEventListener('scroll', () => {
-  const scrollTop = window.pageYOffset;
+let latestScroll = window.pageYOffset;
+let ticking = false;
+
+function updateParallaxSmooth() {
   parallaxSections.forEach(sec => {
-    const offset = sec.offsetTop;
+    const offsetTop = sec.offsetTop;
     const height = sec.offsetHeight;
     const speed = 0.3; // adjust parallax speed
-    // Check if section is visible
-    if(scrollTop + window.innerHeight > offset && scrollTop < offset + height){
-      const yPos = (scrollTop - offset) * speed;
-      sec.style.transform = `translateY(${yPos}px)`;
+
+    if(latestScroll + window.innerHeight > offsetTop && latestScroll < offsetTop + height){
+      const yPos = (latestScroll - offsetTop) * speed;
+      sec.style.backgroundPosition = `center ${yPos}px`;
     }
   });
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  latestScroll = window.pageYOffset;
+  if(!ticking){
+    window.requestAnimationFrame(updateParallaxSmooth);
+    ticking = true;
+  }
 });
+
+window.addEventListener('resize', () => {
+  latestScroll = window.pageYOffset;
+  updateParallaxSmooth();
+});
+
+updateParallaxSmooth();
 </script>
 
 </body>
 </html>
-
