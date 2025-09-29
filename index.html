@@ -70,13 +70,14 @@
 
     .track-container {
       display: flex;
-      background: transparent;
-      backdrop-filter: none;
+      background: none;
+      backdrop-filter: blur(20px);
       padding: 12px;
       border-radius: 10px;
       gap: 12px;
       align-items: center;
-      border: 1px solid rgba(255,85,0,0.5);
+      border: 1px solid rgba(255,85,0,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
     .track-player {
@@ -88,7 +89,6 @@
       height: 166px;
       border-radius: 8px;
       border: none;
-      opacity: 0.95;
     }
 
     .track-info {
