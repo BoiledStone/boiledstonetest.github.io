@@ -1,71 +1,120 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Boiled Stone 🎵</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  body { font-family: Arial, sans-serif; color: #eee; background-color: #000; }
+body {
+  font-family: Arial, sans-serif;
+  color: #eee;
+  background-color: #000;
+}
 
-  header { padding: 2rem; text-align: center; background-color: #000; z-index: 10; }
-  header h1 { font-size: 3rem; color:#fff; }
-  header p { font-size: 1.1rem; color:#ccc; }
+header {
+  padding: 2rem;
+  text-align: center;
+  background-color: #000;
+  position: relative;
+  z-index: 10;
+}
 
-  .parallax-section {
-    height: 600px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-  }
+header h1 { font-size: 3rem; color:#fff; }
+header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
-  .content-section {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 0 20px;
-  }
+.parallax-section {
+  height: 600px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
 
-  .track {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: #eee;
-  }
+.parallax-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4); /* optional, remove if you want full clarity */
+}
 
-  .track iframe {
-    width: 100%;
-    height: 166px;
-    border: none;
-    border-radius: 8px;
-  }
+.content-section {
+  background: transparent;
+  padding: 40px 20px;
+}
 
-  .track .links {
-    font-size: 12px;
-  }
+.music {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-  .track .links a {
-    color: #ff5500;
-    text-decoration: none;
-  }
+/* FIXED track-container */
+.track-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
 
-  .track .links a:hover { text-decoration: underline; }
+.track-player { width: 60%; }
 
-  .track .description { font-size: 0.9rem; }
+.track-player iframe {
+  width: 100%;
+  height: 166px;
+  border-radius: 8px;
+  border: none;
+}
 
-  footer {
-    padding: 15px;
-    text-align: center;
-    background-color: #222;
-    color: #aaa;
-    font-size: 0.9rem;
-  }
+.track-info { width: 40%; }
 
-  @media(max-width:900px){
-    .parallax-section { height:400px; background-attachment: scroll; }
-  }
+.track-info .links {
+  font-size: 11px;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+
+.track-info .links a {
+  color: #ff5500;
+  text-decoration: none;
+}
+
+.track-info .links a:hover { text-decoration: underline; }
+
+.track-info .description {
+  background: none;
+  padding: 0;
+  border: none;
+  color: #eee;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+footer {
+  padding: 15px;
+  color: #aaa;
+  font-size: 0.9rem;
+  background-color: #222;
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .parallax-section { height: 400px; background-attachment: scroll; }
+  .track-container { flex-direction: column; }
+  .track-player, .track-info { width: 100%; }
+  .content-section { padding: 30px 15px; }
+}
 </style>
 </head>
 <body>
@@ -76,55 +125,90 @@
 </header>
 
 <!-- Parallax 1 -->
-<div class="parallax-section" style="background-image:url('images/mandelbulb_power_9.png');"></div>
+<div class="parallax-section" style="background-image: url('images/mandelbulb_power_9.png');">
+  <div class="parallax-overlay"></div>
+</div>
+
 <div class="content-section">
-  <div class="track">
-    <iframe allow="autoplay" 
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2177804334&color=%23ff5500&auto_play=false&visual=true">
-    </iframe>
-    <div class="links">
-      <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
-      <a href="https://soundcloud.com/boiled_stone/project_25" target="_blank">Project_25</a>
+  <section class="music">
+    <div class="track-container">
+      <div class="track-player">
+        <iframe allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2177804334&color=%23ff5500&auto_play=false&visual=true">
+        </iframe>
+      </div>
+      <div class="track-info">
+        <div class="links">
+          <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
+          <a href="https://soundcloud.com/boiled_stone/project_25" target="_blank">Project_25</a>
+        </div>
+        <div class="description">Just tried to make something stimulating</div>
+      </div>
     </div>
-    <div class="description">Just tried to make something stimulating</div>
-  </div>
+  </section>
 </div>
 
 <!-- Parallax 2 -->
-<div class="parallax-section" style="background-image:url('images/icosahedron.png');"></div>
+<div class="parallax-section" style="background-image: url('images/icosahedron.png');">
+  <div class="parallax-overlay"></div>
+</div>
+
 <div class="content-section">
-  <div class="track">
-    <iframe allow="autoplay"
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2136762345&color=%23ff5500&auto_play=false&visual=true">
-    </iframe>
-    <div class="links">
-      <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
-      <a href="https://soundcloud.com/boiled_stone/project_22" target="_blank">Project_22</a>
+  <section class="music">
+    <div class="track-container">
+      <div class="track-player">
+        <iframe allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2136762345&color=%23ff5500&auto_play=false&visual=true">
+        </iframe>
+      </div>
+      <div class="track-info">
+        <div class="links">
+          <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
+          <a href="https://soundcloud.com/boiled_stone/project_22" target="_blank">Project_22</a>
+        </div>
+        <div class="description">Messed with sound</div>
+      </div>
     </div>
-    <div class="description">Messed with sound</div>
-  </div>
+  </section>
 </div>
 
 <!-- Parallax 3 -->
-<div class="parallax-section" style="background-image:url('images/mandelbulb_power_90.png');"></div>
+<div class="parallax-section" style="background-image: url('images/mandelbulb_power_90.png');">
+  <div class="parallax-overlay"></div>
+</div>
+
 <div class="content-section">
-  <div class="track">
-    <iframe allow="autoplay"
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2178270513&color=%23ff5500&auto_play=false&visual=true">
-    </iframe>
-    <div class="links">
-      <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
-      <a href="https://soundcloud.com/boiled_stone/bonusproject_51" target="_blank">bonusecretProject_51</a>
+  <section class="music">
+    <div class="track-container">
+      <div class="track-player">
+        <iframe allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2178270513&color=%23ff5500&auto_play=false&visual=true">
+        </iframe>
+      </div>
+      <div class="track-info">
+        <div class="links">
+          <a href="https://soundcloud.com/boiled_stone" target="_blank">Boiled</a> · 
+          <a href="https://soundcloud.com/boiled_stone/bonusproject_51" target="_blank">bonusecretProject_51</a>
+        </div>
+        <div class="description">Exclusive hidden project 🔒</div>
+      </div>
     </div>
-    <div class="description">Exclusive hidden project 🔒</div>
-  </div>
+  </section>
 </div>
 
 <!-- Additional parallax images -->
-<div class="parallax-section" style="background-image:url('images/i,gg.png');"></div>
-<div class="parallax-section" style="background-image:url('images/no.png');"></div>
-<div class="parallax-section" style="background-image:url('images/menger_sponge.png');"></div>
-<div class="parallax-section" style="background-image:url('images/menger_spongekhhkh.png');"></div>
+<div class="parallax-section" style="background-image: url('images/i,gg.png');">
+  <div class="parallax-overlay"></div>
+</div>
+<div class="parallax-section" style="background-image: url('images/no.png');">
+  <div class="parallax-overlay"></div>
+</div>
+<div class="parallax-section" style="background-image: url('images/menger_sponge.png');">
+  <div class="parallax-overlay"></div>
+</div>
+<div class="parallax-section" style="background-image: url('images/menger_spongekhhkh.png');">
+  <div class="parallax-overlay"></div>
+</div>
 
 <footer>
   © 2025 BoiledStone — Tous droits réservés | All rights reserved
