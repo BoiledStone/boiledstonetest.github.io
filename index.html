@@ -47,23 +47,24 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .track-container {
   display: flex;
-  flex-direction: row;
   gap: 12px;
   align-items: center;
-  background: transparent; /* no background */
-  padding: 0;              /* remove padding */
-  border: none;            /* remove border */
-  box-shadow: none;        /* remove shadow */
-  border-radius: 0;        /* no rounding */
-  backdrop-filter: none;   /* remove blur */
+  background: transparent;   /* removes extra black rectangle */
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  backdrop-filter: none;
 }
 
 .track-player { width: 60%; }
+
 .track-player iframe {
   width: 100%;
-  height: 120px; /* thinner player */
-  border-radius: 8px;
+  height: 120px;             /* thinner player */
+  border-radius: 0;
   border: none;
+  background: transparent;    /* ensures no container background */
 }
 
 .track-info { width: 40%; }
