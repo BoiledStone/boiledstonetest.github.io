@@ -49,7 +49,7 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   display: flex;
   gap: 12px;
   align-items: center;
-  background: transparent;   /* remove black rectangles */
+  background: transparent;
   padding: 0;
   border: none;
   box-shadow: none;
@@ -57,17 +57,22 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   backdrop-filter: none;
 }
 
-.track-player { width: 60%; }
+.track-player {
+  width: 40%;   /* narrower width */
+}
 
 .track-player iframe {
   width: 100%;
-  height: 90px;             /* thinner player */
+  height: 90px; /* thin height */
   border-radius: 0;
   border: none;
   background: transparent;
 }
 
-.track-info { width: 40%; }
+.track-info {
+  width: 60%;  /* remaining space */
+}
+
 .track-info .links { font-size: 11px; color: #bbb; margin-bottom: 8px; }
 .track-info .links a { color: #ff5500; text-decoration: none; }
 .track-info .links a:hover { text-decoration: underline; }
