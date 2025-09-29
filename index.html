@@ -53,6 +53,9 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   flex-wrap: wrap;
   align-items: center;
   background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .track-player {
@@ -66,12 +69,14 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   width: 100%;
   height: 100%;
   border: none;
+  background-color: #000;
 }
 
 .track-info {
   flex: 1;
   min-width: 180px;
   background: transparent;
+  color: #eee;
 }
 
 .track-info .links a {
@@ -79,9 +84,7 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   text-decoration: none;
 }
 
-.track-info .links a:hover {
-  text-decoration: underline;
-}
+.track-info .links a:hover { text-decoration: underline; }
 
 .track-info .description {
   background: transparent;
@@ -100,10 +103,26 @@ footer {
   box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
 }
 
+/* Mobile-friendly parallax */
 @media screen and (max-width:900px){
-  .parallax-section { 
-    background-attachment: scroll; 
-    height: 400px; 
+  .parallax-section {
+    height: 400px;
+    background-attachment: scroll;
+    position: relative;
+    overflow: hidden;
+  }
+  .parallax-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    transform: translateY(-25%);
+    z-index: -1;
   }
   .track-container { flex-direction: column; align-items: center; }
   .track-player, .track-info { flex: 1; width: 100%; height: auto; }
@@ -125,7 +144,7 @@ footer {
     <div class="track-container">
       <div class="track-player">
         <iframe allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2177804334&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2177804334&color=%23000000&theme=dark&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
         </iframe>
       </div>
       <div class="track-info">
@@ -145,7 +164,7 @@ footer {
     <div class="track-container">
       <div class="track-player">
         <iframe allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2136762345&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2136762345&color=%23000000&theme=dark&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
         </iframe>
       </div>
       <div class="track-info">
@@ -165,7 +184,7 @@ footer {
     <div class="track-container">
       <div class="track-player">
         <iframe allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2178270513%3Fsecret_token%3Ds-TPn9grrBKiu&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2178270513%3Fsecret_token%3Ds-TPn9grrBKiu&color=%23000000&theme=dark&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
         </iframe>
       </div>
       <div class="track-info">
