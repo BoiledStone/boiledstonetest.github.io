@@ -47,37 +47,35 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .track-container {
   display: flex;
-  flex-direction: row;
   gap: 15px;
   align-items: center;
-  background: transparent; /* no black rectangle */
+  background: transparent;  /* container transparent */
   padding: 0;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
 }
 
 .track-player {
-  flex: 0 0 300px; /* narrow width */
+  flex: 0 0 300px;
+  overflow: hidden;           /* hide iframe edges */
+  border-radius: 8px;
 }
 
 .track-player iframe {
   width: 100%;
-  height: 90px; /* thin player */
+  height: 100px;              /* thin player */
   border: none;
-  border-radius: 0;
-  background: transparent; /* remove black background */
+  transform: scale(0.95);     /* shrink slightly */
+  transform-origin: top left;
 }
 
 .track-info {
   flex: 1;
-  background: transparent; /* no black behind description */
+  background: transparent;
   padding: 0;
 }
 
 .track-info .links {
   font-size: 11px;
-  color: #ddd; /* slightly lighter for readability */
+  color: #ddd;
   margin-bottom: 5px;
 }
 
@@ -108,6 +106,7 @@ footer {
   .parallax-section { height:400px; background-attachment: scroll; }
   .track-container { flex-direction: column; }
   .track-player, .track-info { flex: 1; width: 100%; }
+  .track-player iframe { transform: scale(1); } /* full width on mobile */
 }
 </style>
 </head>
@@ -188,8 +187,4 @@ footer {
 <div class="parallax-section" style="background-image: url('images/menger_spongekhhkh.png');"></div>
 
 <footer>
-  © 2025 BoiledStone — Tous droits réservés | All rights reserved
-</footer>
-
-</body>
-</html>
+  © 2025 BoiledStone — Tous droits réservés |
