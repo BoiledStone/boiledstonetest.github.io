@@ -16,7 +16,7 @@
     header {
       padding: 2rem;
       text-align: center;
-      background-color: #222;
+      background-color: #111; /* DARKER header */
     }
 
     header h1 {
@@ -29,6 +29,15 @@
       margin: 0.5rem 0 0 0;
       color: #ccc;
       font-size: 1.1rem;
+    }
+
+    /* Parallax sections */
+    .parallax {
+      height: 500px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     .music {
@@ -121,6 +130,10 @@
     <p>Music 🎶</p>
   </header>
 
+  <!-- First Parallax Image -->
+  <section class="parallax" style="background-image: url('images/mandelbox scale 2.jpg');"></section>
+
+  <!-- Music Section -->
   <section class="music">
     <!-- Première chanson -->
     <div class="track-container">
@@ -154,7 +167,7 @@
       </div>
     </div>
 
-    <!-- Troisième chanson (nouvel ajout) -->
+    <!-- Troisième chanson -->
     <div class="track-container">
       <div class="track-player">
         <iframe allow="autoplay"
@@ -170,6 +183,9 @@
       </div>
     </div>
   </section>
+
+  <!-- Second Parallax Image -->
+  <section class="parallax" style="background-image: url('images/mandelbulb_power_9.png');"></section>
 
   <footer>
     © 2025 BoiledStone — Tous droits réservés | All rights reserved
