@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Boiled Stone 🎵</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -17,28 +17,19 @@ header {
   padding: 2rem;
   text-align: center;
   background-color: #000;
+  z-index: 10;
 }
 
 header h1 { font-size: 3rem; color:#fff; }
 header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .parallax-section {
-  position: relative;
   height: 600px;
-  overflow: hidden;
-}
-
-.parallax-section::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-size: cover;
+  background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: inherit;
-  transform: translateZ(0) scale(1.1); /* subtle parallax effect */
-  z-index: -1;
+  background-size: cover;
+  position: relative;
 }
 
 .content-section {
@@ -51,22 +42,23 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 .music {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 30px; /* spacing between tracks */
 }
 
 .track-container {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
   background: transparent;
-  flex-wrap: wrap;
+  padding: 0;
+  flex-wrap: wrap; /* wrap on smaller screens */
 }
 
 .track-player {
-  flex: 0 0 400px;
+  flex: 0 0 400px;  /* wider rectangular player */
   height: 200px;
-  border-radius: 8px;
   overflow: hidden;
+  border-radius: 8px;
 }
 
 .track-player iframe {
@@ -77,9 +69,9 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .track-info {
   flex: 1;
-  min-width: 180px;
   background: transparent;
   padding: 0;
+  min-width: 180px;
 }
 
 .track-info .links {
@@ -111,21 +103,10 @@ footer {
   text-align: center;
 }
 
-/* Mobile optimization */
 @media screen and (max-width:900px){
-  .parallax-section { height: 400px; }
-  .track-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .track-player, .track-info {
-    flex: 1;
-    width: 100%;
-    height: auto;
-  }
-  .track-player iframe {
-    height: 200px;
-  }
+  .parallax-section { height:400px; background-attachment: scroll; }
+  .track-container { flex-direction: column; }
+  .track-player, .track-info { flex: 1; width: 100%; height: 200px; }
 }
 </style>
 </head>
@@ -136,8 +117,8 @@ footer {
   <p>Music 🎶</p>
 </header>
 
-<!-- Parallax + Content Sections -->
-<div class="parallax-section" style="background-image:url('images/fond.png');"></div>
+<!-- Parallax 1 -->
+<div class="parallax-section" style="background-image: url('images/fond.png');"></div>
 <div class="content-section">
   <section class="music">
     <div class="track-container">
@@ -157,7 +138,8 @@ footer {
   </section>
 </div>
 
-<div class="parallax-section" style="background-image:url('images/icosahedron.png');"></div>
+<!-- Parallax 2 -->
+<div class="parallax-section" style="background-image: url('images/icosahedron.png');"></div>
 <div class="content-section">
   <section class="music">
     <div class="track-container">
@@ -177,7 +159,8 @@ footer {
   </section>
 </div>
 
-<div class="parallax-section" style="background-image:url('images/menger_sponge.jpg');"></div>
+<!-- Parallax 3 -->
+<div class="parallax-section" style="background-image: url('images/menger_sponge.jpg');"></div>
 <div class="content-section">
   <section class="music">
     <div class="track-container">
@@ -197,11 +180,11 @@ footer {
   </section>
 </div>
 
-<!-- Extra parallax images -->
-<div class="parallax-section" style="background-image:url('images/i,gg.png');"></div>
-<div class="parallax-section" style="background-image:url('images/no.png');"></div>
-<div class="parallax-section" style="background-image:url('images/mandelbox_scale_2.jpg');"></div>
-<div class="parallax-section" style="background-image:url('images/menger_spongekhhkh.png');"></div>
+<!-- Additional parallax images -->
+<div class="parallax-section" style="background-image: url('images/i,gg.png');"></div>
+<div class="parallax-section" style="background-image: url('images/no.png');"></div>
+<div class="parallax-section" style="background-image: url('images/mandelbox_scale_2.jpg');"></div>
+<div class="parallax-section" style="background-image: url('images/menger_spongekhhkh.png');"></div>
 
 <footer>
   © 2025 BoiledStone — Tous droits réservés | All rights reserved
