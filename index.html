@@ -25,18 +25,22 @@ header h1 { font-size: 3rem; color:#fff; }
 header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
 
 .parallax-section {
-  height: 600px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   position: relative;
-  background-attachment: fixed;
+  height: 600px;
+  overflow: hidden;
 }
 
-@media (max-width: 1024px) {
-  .parallax-section {
-    background-attachment: scroll;
-  }
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* slightly bigger for smooth parallax */
+  background-position: center;
+  background-size: cover;
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+  will-change: transform;
 }
 
 .content-section {
@@ -79,7 +83,7 @@ header p { font-size: 1.1rem; color:#ccc; margin-top:0.5rem; }
   height: 200px;
   overflow: hidden;
   border-radius: 8px;
-  background: #111; /* fallback */
+  background: #111;
 }
 
 .track-player iframe {
@@ -138,14 +142,17 @@ footer {
   <p>Music, beats & vibes</p>
 </header>
 
-<div class="parallax-section" style="background-image:url('images/fond.png');"></div>
+<!-- Parallax Sections -->
+<div class="parallax-section">
+  <div class="parallax-bg" style="background-image:url('images/fond.png');"></div>
+</div>
 
 <div class="content-section reveal">
   <div class="music">
     <div class="track-container">
       <div class="track-player">
-        <iframe scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boiledstone/yourtrack&color=%23000&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false">
+        <iframe allow="autoplay" scrolling="no" frameborder="no"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boiledstone/yourtrack&color=%23000&auto_play=false">
         </iframe>
       </div>
       <div class="track-info">
@@ -158,25 +165,62 @@ footer {
   </div>
 </div>
 
-<div class="parallax-section" style="background-image:url('images/icosahedron.png');"></div>
+<div class="parallax-section">
+  <div class="parallax-bg" style="background-image:url('images/icosahedron.png');"></div>
+</div>
+
+<div class="content-section reveal">
+  <div class="music">
+    <div class="track-container">
+      <div class="track-player">
+        <iframe allow="autoplay" scrolling="no" frameborder="no"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boiledstone/yourtrack2&color=%23000&auto_play=false">
+        </iframe>
+      </div>
+      <div class="track-info">
+        <div class="links">
+          <a href="#">Download</a> | <a href="#">More</a>
+        </div>
+        <div class="description">Another track description.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   © 2025 Boiled Stone
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const reveals = document.querySelectorAll(".reveal");
+// Parallax scroll
+function parallaxScroll() {
+  const sections = document.querySelectorAll('.parallax-section');
+  const scrollTop = window.pageYOffset;
 
+  sections.forEach(section => {
+    const bg = section.querySelector('.parallax-bg');
+    if (!bg) return;
+    const rect = section.getBoundingClientRect();
+    const offset = (rect.top - window.innerHeight / 2) * 0.3;
+    bg.style.transform = `translateY(${offset}px)`;
+  });
+}
+
+window.addEventListener('scroll', parallaxScroll);
+window.addEventListener('resize', parallaxScroll);
+document.addEventListener('DOMContentLoaded', () => {
+  parallaxScroll();
+
+  // Reveal sections
+  const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.2 });
-
   reveals.forEach(r => observer.observe(r));
 });
 </script>
