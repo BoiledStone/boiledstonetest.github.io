@@ -12,7 +12,7 @@ header { padding:2rem; text-align:center; background:#000; z-index:10; position:
 header h1 { font-size:3rem; color:#fff; }
 header p { font-size:1.1rem; color:#ccc; margin-top:0.5rem; }
 
-.content-section { max-width:900px; margin:50px auto; padding:20px; background:transparent; }
+.content-section { max-width:900px; margin:50px auto; padding:20px; background:transparent; z-index:5; position:relative; }
 .reveal { opacity:0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
 .reveal.visible { opacity:1; transform: translateY(0); }
 
@@ -26,23 +26,8 @@ header p { font-size:1.1rem; color:#ccc; margin-top:0.5rem; }
 .track-info .links a:hover { text-decoration:underline; }
 .track-info .description { background:transparent; border:none; padding:0; font-size:0.85rem; color:#eee; }
 
-.parallax-section {
-  position: relative;
-  height:600px;
-  overflow:hidden;
-}
-
-.parallax-bg {
-  position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:130%;
-  background-position:center;
-  background-size:cover;
-  transform: translateY(0) scale(1.05);
-  transition: transform 0.1s linear;
-  will-change: transform;
-}
+.parallax-section { position:relative; height:600px; overflow:hidden; }
+.parallax-bg { position:absolute; top:0; left:0; width:100%; height:130%; background-position:center; background-size:cover; transform:translateY(0) scale(1.05); transition: transform 0.1s linear; will-change: transform; }
 
 footer { padding:15px; color:#aaa; font-size:0.9rem; background:#000; text-align:center; }
 
@@ -97,7 +82,9 @@ footer { padding:15px; color:#aaa; font-size:0.9rem; background:#000; text-align
 </div>
 
 <!-- Parallax Images -->
-<div class="parallax-section"><div class="parallax-bg" style="background-image:url('images/fond.png');"></div></div>
+<div class="parallax-section" style="height:900px;">
+  <div class="parallax-bg" style="background-image:url('images/fond.png'); top:-200px;"></div>
+</div>
 <div class="parallax-section"><div class="parallax-bg" style="background-image:url('images/i,gg.png');"></div></div>
 <div class="parallax-section"><div class="parallax-bg" style="background-image:url('images/icosahedron.png');"></div></div>
 <div class="parallax-section"><div class="parallax-bg" style="background-image:url('images/mandelbox_scale_2.jpg');"></div></div>
@@ -113,19 +100,17 @@ footer { padding:15px; color:#aaa; font-size:0.9rem; background:#000; text-align
 <script>
 // Parallax scroll effect
 function parallaxScroll(){
-  const sections = document.querySelectorAll('.parallax-section');
-  sections.forEach(section=>{
+  const headerHeight = document.querySelector('header').offsetHeight;
+  document.querySelectorAll('.parallax-section').forEach(section=>{
     const bg = section.querySelector('.parallax-bg');
     if(!bg) return;
     const rect = section.getBoundingClientRect();
     const sectionHeight = section.offsetHeight;
     const windowHeight = window.innerHeight;
-    
-    let progress = (windowHeight - rect.top) / (windowHeight + sectionHeight);
+    let progress = (windowHeight - rect.top + headerHeight)/ (windowHeight + sectionHeight);
     progress = Math.min(Math.max(progress,0),1);
-    
     const maxTranslate = (bg.offsetHeight - sectionHeight);
-    const scale = 1 + 0.05 * progress; // optional small scale for nicer parallax
+    const scale = 1 + 0.05 * progress;
     bg.style.transform = `translateY(${-maxTranslate*0.5 + maxTranslate*progress*0.5}px) scale(${scale})`;
   });
 }
@@ -133,7 +118,7 @@ window.addEventListener('scroll', parallaxScroll);
 window.addEventListener('resize', parallaxScroll);
 document.addEventListener('DOMContentLoaded', parallaxScroll);
 
-// Fade-in effect for content
+// Fade-in effect for music section
 document.addEventListener('DOMContentLoaded',()=>{
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries)=>{
